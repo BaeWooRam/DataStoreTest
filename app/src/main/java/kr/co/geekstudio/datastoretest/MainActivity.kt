@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btAdd.setOnClickListener(this)
         btRemove.setOnClickListener(this)
+        result({1 + 1},{ Log.i("MainActivity","execute result")})
     }
 
     override fun onClick(v: View?) {
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    //inline 예제
     fun add(num1: Int, num2:Int): Int {
         return operation { return@operation num1 + num2 }
     }
@@ -89,7 +91,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         return func()
     }
 
+    //noinline 예제
+    inline fun result(noinline func :() -> Int,  func1:() -> Unit):Int{
+        func1()
+        return operation2(func)
+    }
 
+    fun operation2(func:() -> Int):Int{
+        return func()
+    }
+
+    //infix 예제
     infix fun String.meet(other:String):String{
         return this + other
     }
